@@ -4,10 +4,6 @@
 
 In this guide, we will perform data analysis and data preparation tasks to train a Linear Regression model to predict future ROI (Return On Investment) of variable ad spend budgets across multiple channels including search, video, social media, and email using Snowpark for Python, Streamlit and scikit-learn. By the end of the session, you will have an interactive web application deployed visualizing the ROI of different allocated advertising spend budgets.
 
-If all goes well, you should see the following app in your browser window.
-
-https://user-images.githubusercontent.com/1723932/175127637-9149b9f3-e12a-4acd-a271-4650c47d8e34.mp4
-
 ## Prerequisites
 
 * [Snowflake account](https://signup.snowflake.com/)
@@ -20,7 +16,7 @@ https://user-images.githubusercontent.com/1723932/175127637-9149b9f3-e12a-4acd-a
 
 ### **Step 1** -- Create Tables, Load Data and Setup Stages
 
-In Snowsight, open [setup.sql](setup.sql) and run all SQL statements to create tables and load data from AWS S3.
+In [Snowsight](https://docs.snowflake.com/en/user-guide/ui-snowsight.html), open [setup.sql](setup.sql) and run all SQL statements to create tables and load data from AWS S3.
 
 *NOTE: If you use different names for objects like database, schema, tables, stages, etc., remember to updated the code and scripts accordingly.*
 
