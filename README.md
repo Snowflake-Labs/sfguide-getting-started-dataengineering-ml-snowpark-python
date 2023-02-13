@@ -85,7 +85,7 @@ https://user-images.githubusercontent.com/1723932/175127637-9149b9f3-e12a-4acd-a
 
 ### Running it in Snowsight -- Streamlit-in-Snowflake (SiS)
 
-* If you have SiS enabled in your account, follow these steps to run the application in Snowsight instead of locally on your machine.
+* If you have SiS enabled in your account, follow these steps to run the application in Snowsight instead of locally on your machine. ***Note: SiS is in Private Preview as of Feburary 2023.***
 
   1) Click on **Streamlit Apps** on the left navigation menu
   2) Click on **+ Streamlit App** on the top right
