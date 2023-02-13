@@ -22,6 +22,8 @@ https://user-images.githubusercontent.com/1723932/175127637-9149b9f3-e12a-4acd-a
 
 In Snowsight, open [setup.sql](setup.sql) and run all SQL statements to create tables and load data from AWS S3.
 
+*NOTE: If you use different names for objects like database, schema, tables, stages, etc., remember to updated the code and scripts accordingly.*
+
 ### **Step 2** -- Clone Repo
 
 * `git clone https://github.com/Snowflake-Labs/sfguide-ad-spend-roi-snowpark-python-streamlit-scikit-learn.git` OR `git clone git@github.com:Snowflake-Labs/sfguide-ad-spend-roi-snowpark-python-streamlit-scikit-learn.git`
