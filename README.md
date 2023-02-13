@@ -1,4 +1,4 @@
-# Advertising Spend and ROI Prediction
+# Ad Spend and ROI Prediction using Snowpark for Python, Streamlit, and scikit-learn
 
 ## Overview
 
