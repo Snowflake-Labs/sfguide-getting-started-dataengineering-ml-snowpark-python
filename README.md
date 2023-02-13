@@ -18,7 +18,7 @@ In this guide, we will perform data analysis and data preparation tasks to train
 
 In [Snowsight](https://docs.snowflake.com/en/user-guide/ui-snowsight.html), open [setup.sql](setup.sql) and run all SQL statements to create tables and load data from AWS S3.
 
-*NOTE: If you use different names for objects like database, schema, tables, stages, etc., remember to updated the code and scripts accordingly.*
+**Note**: If you use different names for objects like database, schema, tables, stages, etc., remember to updated the code and scripts accordingly.
 
 ### **Step 2** -- Clone Repo
 
@@ -41,13 +41,13 @@ https://conda.io/miniconda.html. OR, you may use any other Python environment wi
 
 ### **Step 5** -- Update [connection.json](connection.json) with your Snowflake account details and credentials
 
-* Note: For the **account** parameter, specify your [account identifier](https://docs.snowflake.com/en/user-guide/admin-account-identifier.html) and do not include the snowflakecomputing.com domain name. Snowflake automatically appends this when creating the connection.
+* **Note**: For the **account** parameter, specify your [account identifier](https://docs.snowflake.com/en/user-guide/admin-account-identifier.html) and do not include the snowflakecomputing.com domain name. Snowflake automatically appends this when creating the connection.
 
 ## Data Engineering -- Data Analysis and Data Preparation
 
 * In a terminal window, browse to this folder and run `jupyter notebook` at the command line. (You may also use other tools and IDEs such Visual Studio Code.)
 * Open and run through the [Snowpark_For_Python_DE.ipynb](Snowpark_For_Python_DE.ipynb)
-  * Note: Make sure in the Jupyter notebook the (Python) kernel is set to ***snowpark***
+  * **Note**: Make sure in the Jupyter notebook the (Python) kernel is set to ***snowpark***
 
 The notebook does the following...
 
@@ -61,7 +61,7 @@ The notebook does the following...
 
 * In a terminal window, browse to this folder and run `jupyter notebook` at the command line. (You may also use other tools and IDEs such Visual Studio Code.)
 * Open and run through the [Snowpark_For_Python_ML.ipynb](Snowpark_For_Python_ML.ipynb)
-  * Note: Make sure the Jupyter notebook (Python) kernel is set to ***snowpark***
+  * **Note**: Make sure the Jupyter notebook (Python) kernel is set to ***snowpark***
 
 The notebook does the following...
 
@@ -69,8 +69,9 @@ The notebook does the following...
 * Load features and target from Snowflake table into Snowpark DataFrame
 * Prepare features for model training
 * Create a Python Stored Procedure to deploy model training code on Snowflake
-* Create Python Scalar and Vectorized User-Defined Functions (UDF) for inference on new data points
-  *NOTE: The Scalar UDF is called from the Streamlit Apps. See [Snowpark_Streamlit_Revenue_Prediction.py](Snowpark_Streamlit_Revenue_Prediction.py) and [Snowpark_Streamlit_Revenue_Prediction_SiS.py](Snowpark_Streamlit_Revenue_Prediction_SiS.py)*
+* Create Python Scalar and Vectorized User-Defined Functions (UDF) for inference on new data points.
+
+  * **Note**: The Scalar UDF is called from the Streamlit Apps. See [Snowpark_Streamlit_Revenue_Prediction.py](Snowpark_Streamlit_Revenue_Prediction.py) and [Snowpark_Streamlit_Revenue_Prediction_SiS.py](Snowpark_Streamlit_Revenue_Prediction_SiS.py)
 
 ## Streamlit Application
 
@@ -100,7 +101,7 @@ https://user-images.githubusercontent.com/1723932/175127637-9149b9f3-e12a-4acd-a
 
 ### Differences between two Streamlit Apps
 
-The only difference between the two versions of Streamlit applications is how you create and access the Session object.
+The main difference between the two versions of Streamlit applications is how you create and access the Session object.
 
 When running locally, you'd create and access the new Session object it like so:
 
