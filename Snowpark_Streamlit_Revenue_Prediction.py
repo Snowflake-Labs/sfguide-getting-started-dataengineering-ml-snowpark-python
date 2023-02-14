@@ -21,7 +21,7 @@ def create_session():
     return session
 
 # Function to load last six months' budget allocations and ROI 
-@st.experimental_memo(show_spinner=False)
+@st.cache_data(show_spinner=False)
 def load_data():
     historical_data = session.table("BUDGET_ALLOCATIONS_AND_ROI").unpivot("Budget", "Channel", ["SearchEngine", "SocialMedia", "Video", "Email"]).filter(col("MONTH") != "July")
     df_last_six_months_allocations = historical_data.drop("ROI").to_pandas()
@@ -52,7 +52,7 @@ for channel, default, col in zip(channels, df_last_months_allocations["BUDGET"].
 # Function to call "predict_roi" UDF that uses the pre-trained model for inference
 # Note: Both the model training and UDF registration is done in Snowpark_For_Python.ipynb
 st.header("Predicted revenue")
-@st.experimental_memo(show_spinner=False)
+@st.cache_data(show_spinner=False)
 def predict(budgets):
     df_predicted_roi = session.sql(f"SELECT predict_roi(array_construct({budgets[0]*1000},{budgets[1]*1000},{budgets[2]*1000},{budgets[3]*1000})) as PREDICTED_ROI").to_pandas()
     predicted_roi, last_month_roi = df_predicted_roi["PREDICTED_ROI"].values[0] / 100000, df_last_six_months_roi["ROI"].iloc[-1]

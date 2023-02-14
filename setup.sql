@@ -8,7 +8,7 @@ CREATE or REPLACE file format csvformat
 
 CREATE or REPLACE stage campaign_data_stage
   file_format = csvformat
-  url = 's3://sfquickstarts/Summit 2022 Keynote Demo/campaign_spend/';
+  url = 's3://sfquickstarts/ad-spend-roi-snowpark-python-scikit-learn-streamlit/campaign_spend/';
 
 CREATE or REPLACE TABLE CAMPAIGN_SPEND (
   CAMPAIGN VARCHAR(60), 
@@ -25,7 +25,7 @@ COPY into CAMPAIGN_SPEND
 -- Create table MONTHLY_REVENUE from data hosted on publicly accessible S3 bucket
 CREATE or REPLACE stage monthly_revenue_data_stage
   file_format = csvformat
-  url = 's3://sfquickstarts/Summit 2022 Keynote Demo/monthly_revenue/';
+  url = 's3://sfquickstarts/ad-spend-roi-snowpark-python-scikit-learn-streamlit/monthly_revenue/';
 
 CREATE or REPLACE TABLE MONTHLY_REVENUE (
   YEAR NUMBER(38,0),
