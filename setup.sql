@@ -1,4 +1,10 @@
 USE ROLE ACCOUNTADMIN;
+
+-- Create the warehouse, database and schema
+CREATE OR REPLACE WAREHOUSE DASH_L;
+CREATE OR REPLACE DATABASE DASH_DB;
+CREATE OR REPLACE SCHEMA DASH_SCHEMA;
+
 USE DASH_DB.DASH_SCHEMA;
 
 -- Create table CAMPAIGN_SPEND from data hosted on publicly accessible S3 bucket
