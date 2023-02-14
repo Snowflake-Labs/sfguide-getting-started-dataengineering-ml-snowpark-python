@@ -6,4 +6,4 @@ In this guide, we will perform data engineering (data analysis and data preparat
 
 ## Step-By-Step Guide
 
-For prerequisites, environment setup, step-by-step guide and instructons, please refer to the [QuickStart Guide](https://quickstarts.snowflake.com/guide/ad_spend_roi_snowpark_python_scikit_learn_streamlit/#0).
+For prerequisites, environment setup, step-by-step guide and instructions, please refer to the [QuickStart Guide](https://quickstarts.snowflake.com/guide/ad_spend_roi_snowpark_python_scikit_learn_streamlit).
