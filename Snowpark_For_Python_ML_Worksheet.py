@@ -1,7 +1,7 @@
 ##### Load this file in Snowsight as a Python Worksheet. To learn more see https://docs.snowflake.com/en/user-guide/ui-snowsight-worksheets-gs
 
 ##### PREREQUISITE
-# Create tables, stages, and load data by running SQL statements in https://github.com/Snowflake-Labs/sfguide-getting-started-dataengineering-ml-snowpark-python/blob/main/setup.sql
+# Run through https://github.com/Snowflake-Labs/sfguide-getting-started-dataengineering-ml-snowpark-python/blob/main/Snowpark_For_Python_DE_Worksheet.py
 #####
 
 # Import Snowpark for Python
