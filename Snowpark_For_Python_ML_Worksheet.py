@@ -51,6 +51,7 @@ def main(session: snowpark.Session):
     snow_df_spend_and_revenue_per_month.write.mode('overwrite').save_as_table('MARKETING_BUDGETS_FEATURES')
 
     print("Features And Target")
+    # See the output of this command in "PY Output" tab below
     snow_df_spend_and_revenue_per_month.show()
     
     ### Model Training in Snowflake 
@@ -151,6 +152,7 @@ def main(session: snowpark.Session):
     save_model = True
 
     print("Execute Stored Procedure to train model and deploy it on Snowflake")
+    # See the output of this command in "PY Output" tab below
     print(session.call('train_revenue_prediction_model',
                         'MARKETING_BUDGETS_FEATURES',
                         cross_validaton_folds,
@@ -200,4 +202,5 @@ def main(session: snowpark.Session):
         call_udf("predict_roi", 
         array_construct(col("SEARCH_ENGINE"), col("SOCIAL_MEDIA"), col("VIDEO"), col("EMAIL"))).as_("PREDICTED_ROI"))
 
+    # See the output of this in "Results" tab below
     return test_df

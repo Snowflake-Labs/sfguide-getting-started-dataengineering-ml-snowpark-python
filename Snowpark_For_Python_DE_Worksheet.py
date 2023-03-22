@@ -42,6 +42,7 @@ def main(session: snowpark.Session):
     with_column_renamed('"YEAR(DATE)"',"YEAR").with_column_renamed('"MONTH(DATE)"',"MONTH").sort('YEAR','MONTH')
 
     print("Total Spend per Year and Month For All Channels")
+    # See the output of this command in "PY Output" tab below
     snow_df_spend_per_channel.show()
 
     ### Pivot on Channel
@@ -60,6 +61,7 @@ def main(session: snowpark.Session):
     )
 
     print("Total Spend Across All Channels")
+    # See the output of this command in "PY Output" tab below
     snow_df_spend_per_month.show()
 
     ### Save Transformed Data into Snowflake Table
@@ -74,6 +76,7 @@ def main(session: snowpark.Session):
     snow_df_revenue_per_month = snow_df_revenue.group_by('YEAR','MONTH').agg(sum('REVENUE')).sort('YEAR','MONTH').with_column_renamed('SUM(REVENUE)','REVENUE')
 
     print("Total Revenue per Year and Month")
+    # See the output of this command in "PY Output" tab below
     snow_df_revenue_per_month.show()
 
     ### Join Total Spend and Total Revenue per Year and Month Across All Channels
@@ -81,9 +84,11 @@ def main(session: snowpark.Session):
     snow_df_spend_and_revenue_per_month = snow_df_spend_per_month.join(snow_df_revenue_per_month, ["YEAR","MONTH"])
 
     print("Total Spend and Revenue per Year and Month Across All Channels")
+    # See the output of this command in "PY Output" tab below
     snow_df_spend_and_revenue_per_month.show()
 
     # Snowpark makes is really convenient to look at the DataFrame query and execution plan using explain() Snowpark DataFrame function.
+    # See the output of this command in "PY Output" tab below
     snow_df_spend_and_revenue_per_month.explain()
 
     ### Save Transformed Data into Snowflake Table
@@ -91,4 +96,5 @@ def main(session: snowpark.Session):
 
     snow_df_spend_and_revenue_per_month.write.mode('overwrite').save_as_table('SPEND_AND_REVENUE_PER_MONTH')
 
+    # See the output of this in "Results" tab below
     return snow_df_spend_and_revenue_per_month
