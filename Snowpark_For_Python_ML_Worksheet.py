@@ -1,23 +1,44 @@
-##### Load this file in Snowsight as a Python Worksheet. To learn more see https://docs.snowflake.com/en/user-guide/ui-snowsight-worksheets-gs
-
-##### PREREQUISITE
+##### Prerequisite
 # Run through https://github.com/Snowflake-Labs/sfguide-getting-started-dataengineering-ml-snowpark-python/blob/main/Snowpark_For_Python_DE_Worksheet.py
 #####
+
+##### Usage
+# Load this file in Snowsight as a Python Worksheet. To learn more see https://docs.snowflake.com/en/user-guide/ui-snowsight-worksheets-gs
+#####
+
+##### Introduction
+# What is Snowpark?
+# It allows data engineers and developers to query and transform data as well as write data applications in languages other than SQL using a set of APIs and DataFrame-style programming constructs in Python, Java, and Scala. These applications run on and take advantage of the same distributed computation on Snowflake's elastic engine as the SQL workloads. Learn more about Snowpark -- https://www.snowflake.com/snowpark/
+#
+# QuickStart Guide: https://quickstarts.snowflake.com/guide/getting_started_with_dataengineering_ml_using_snowpark_python/index.html
+# YouTube: [TBD]
+#####
+
+##### Snowflake Anaconda Channel
+# For convenience, Snowpark for Python and 1000s of other popular open source third-party Python packages that are built and provided by Anaconda are made available to use out of the box in Snowflake. There is no additional cost for the use of the Anaconda packages apart from Snowflake’s standard consumption-based pricing. To view the list of packages see https://repo.anaconda.com/pkgs/snowflake.
 
 # Import Snowpark for Python
 import snowflake.snowpark as snowpark
 from snowflake.snowpark.types import Variant
 from snowflake.snowpark.functions import udf,sum,col,array_construct,month,year,call_udf,lit
 
-def main(session: snowpark.Session): 
-    ### Features and Target
+def main(session: snowpark.Session):
+    # What is a Snowpark DataFrame
+    # It represents a lazily-evaluated relational dataset that contains a collection of Row objects with columns defined by a schema (column name and type). Here are some of the ways to load data in a Snowpark DataFrame are:
+    # - session.table('table_name')
+    # - session.sql("select col1, col2... from tableName")*
+    # - session.read.options({"field_delimiter": ",", "skip_header": 1}).schema(user_schema).csv("@mystage/testCSV.csv")*
+    # - session.read.parquet("@stageName/path/to/file")*
+    # - session.create_dataframe([1,2,3], schema=["col1"])*
+
+    ### Let's load Features and Target into a Snowpark DataFrame
     # At this point we are ready to perform the following actions to save features and target for model training.
     # Here we will
-        # Delete rows with missing values
-        # Exclude columns we don't need for modeling
-        # Save features into a Snowflake table called MARKETING_BUDGETS_FEATURES
+    # - Delete rows with missing values
+    # - Exclude columns we don't need for modeling
+    # - Save features into a Snowflake table called MARKETING_BUDGETS_FEATURES
 
-    # Load data
+    # Load Features and Target
     snow_df_spend_and_revenue_per_month = session.table('spend_and_revenue_per_month')
 
     # Delete rows with missing values
@@ -33,7 +54,7 @@ def main(session: snowpark.Session):
     snow_df_spend_and_revenue_per_month.show()
     
     ### Model Training in Snowflake 
-    # Let's create a Python function that uses **scikit-learn and other packages which are already included in** [Snowflake Anaconda channel](https://repo.anaconda.com/pkgs/snowflake/) and therefore available on the server-side when executing the Python function as a Stored Procedure running in Snowflake.
+    # Let's create a Python function that uses **scikit-learn and other packages which are already included in Snowflake Anaconda channel and therefore available on the server-side when executing the Python function as a Stored Procedure running in Snowflake.
     # This function takes the following as parameters:
         # session: Snowflake Session object.
         # features_table: Name of the table that holds the features and target variable.
@@ -43,7 +64,7 @@ def main(session: snowpark.Session):
         # test_accuracy_threshold: Accuracy thresholds for test dataset. This values is used to determine if the model should be saved.
         # save_model: Boolean that determines if the model should be saved provided the accuracy thresholds are met.
     
-    #TIP: Learn more about see https://docs.snowflake.com/en/user-guide/warehouses-snowpark-optimized.html
+    # TIP: Learn more about Snowpark Optimized Warehouse https://docs.snowflake.com/en/user-guide/warehouses-snowpark-optimized.html
 
     def train_revenue_prediction_model(
         session: snowpark.Session, 
@@ -111,7 +132,7 @@ def main(session: snowpark.Session):
 
     ### Create Stored Procedure to deploy model training code on Snowflake
     # Assuming the testing is complete and we're satisfied with the model, let's register the model training Python function as a Snowpark Python Stored Procedure by supplying the packages (snowflake-snowpark-python,scikit-learn, and joblib) it will need and use during execution.
-    #TIP: Learn more about Snowpark Python Stored Procedures https://docs.snowflake.com/en/sql-reference/stored-procedures-python.html
+    # TIP: Learn more about Snowpark Python Stored Procedures https://docs.snowflake.com/en/sql-reference/stored-procedures-python.html
 
     session.sproc.register(
         func=train_revenue_prediction_model,
