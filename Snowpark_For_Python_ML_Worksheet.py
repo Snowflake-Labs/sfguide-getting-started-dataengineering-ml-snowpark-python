@@ -6,6 +6,15 @@
 # Load this file in Snowsight as a Python Worksheet. To learn more see https://docs.snowflake.com/en/user-guide/ui-snowsight-worksheets-gs
 #####
 
+##### Worksheet Overview
+# Perform data analysis and data preparation tasks to train a Linear Regression model to predict future ROI (Return On Investment) of variable ad spend budgets across multiple channels including search, video, social media, and email using Snowpark for Python and scikit-learn.
+# In Particular
+# * Load features and target from Snowflake table into Snowpark DataFrame
+# * Prepare features for model training
+# * Create a Python Stored Procedure to deploy model training code on Snowflake
+# * Create Python Scalar and Vectorized User-Defined Functions (UDF) for inference on new data points
+#####
+
 ##### Introduction
 # What is Snowpark?
 # It allows data engineers and developers to query and transform data as well as write data applications in languages other than SQL using a set of APIs and DataFrame-style programming constructs in Python, Java, and Scala. These applications run on and take advantage of the same distributed computation on Snowflake's elastic engine as the SQL workloads. Learn more about Snowpark -- https://www.snowflake.com/snowpark/
