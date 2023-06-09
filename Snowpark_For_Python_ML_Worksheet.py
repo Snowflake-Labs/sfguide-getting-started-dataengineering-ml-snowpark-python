@@ -27,9 +27,16 @@
 # For convenience, Snowpark for Python and 1000s of other popular open source third-party Python packages that are built and provided by Anaconda are made available to use out of the box in Snowflake. There is no additional cost for the use of the Anaconda packages apart from Snowflake’s standard consumption-based pricing. To view the list of packages see https://repo.anaconda.com/pkgs/snowflake.
 
 # Import Snowpark for Python
+import os
+from joblib import dump
 import snowflake.snowpark as snowpark
 from snowflake.snowpark.types import Variant
 from snowflake.snowpark.functions import udf,sum,col,array_construct,month,year,call_udf,lit
+from snowflake.ml.modeling.compose import ColumnTransformer
+from snowflake.ml.modeling.pipeline import Pipeline
+from snowflake.ml.modeling.preprocessing import PolynomialFeatures, StandardScaler
+from snowflake.ml.modeling.linear_model import LinearRegression
+from snowflake.ml.modeling.model_selection import GridSearchCV
 
 def main(session: snowpark.Session):
     # What is a Snowpark DataFrame
@@ -62,113 +69,77 @@ def main(session: snowpark.Session):
     print("Features And Target")
     # See the output of this command in "PY Output" tab below
     snow_df_spend_and_revenue_per_month.show()
-    
-    ### Model Training in Snowflake 
-    # Let's create a Python function that uses **scikit-learn and other packages which are already included in Snowflake Anaconda channel and therefore available on the server-side when executing the Python function as a Stored Procedure running in Snowflake.
-    # This function takes the following as parameters:
-        # session: Snowflake Session object.
-        # features_table: Name of the table that holds the features and target variable.
-        # number_of_folds: Number of cross validation folds used in GridSearchCV.
-        # polynomial_features_degress: PolynomialFeatures as a preprocessing step.
-        # train_accuracy_threshold: Accuracy thresholds for train dataset. This values is used to determine if the model should be saved.
-        # test_accuracy_threshold: Accuracy thresholds for test dataset. This values is used to determine if the model should be saved.
-        # save_model: Boolean that determines if the model should be saved provided the accuracy thresholds are met.
-    
-    # TIP: Learn more about Snowpark Optimized Warehouse https://docs.snowflake.com/en/user-guide/warehouses-snowpark-optimized.html
 
-    def train_revenue_prediction_model(
-        session: snowpark.Session, 
-        features_table: str, 
-        number_of_folds: int, 
-        polynomial_features_degrees: int, 
-        train_accuracy_threshold: float, 
-        test_accuracy_threshold: float, 
-        save_model: bool) -> Variant:
-        
-        from sklearn.compose import ColumnTransformer
-        from sklearn.pipeline import Pipeline
-        from sklearn.preprocessing import PolynomialFeatures
-        from sklearn.preprocessing import StandardScaler
-        from sklearn.linear_model import LinearRegression
-        from sklearn.model_selection import train_test_split, GridSearchCV
-    
-        import os
-        from joblib import dump
-    
-        # Load features
-        df = session.table(features_table).to_pandas()
-    
-        # Preprocess the Numeric columns
-        # We apply PolynomialFeatures and StandardScaler preprocessing steps to the numeric columns
-        # NOTE: High degrees can cause overfitting.
-        numeric_features = ['SEARCH_ENGINE','SOCIAL_MEDIA','VIDEO','EMAIL']
-        numeric_transformer = Pipeline(steps=[('poly',PolynomialFeatures(degree = polynomial_features_degrees)),('scaler', StandardScaler())])
-    
-        # Combine the preprocessed step together using the Column Transformer module
-        preprocessor = ColumnTransformer(
-            transformers=[
-                ('num', numeric_transformer, numeric_features)])
-    
-        # The next step is the integrate the features we just preprocessed with our Machine Learning algorithm to enable us to build a model
-        pipeline = Pipeline(steps=[('preprocessor', preprocessor),('classifier', LinearRegression())])
-        parameteres = {}
-    
-        X = df.drop('REVENUE', axis = 1)
-        y = df['REVENUE']
-    
-        # Split dataset into training and test
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state = 42)
-    
-        # Use GridSearch to find the best fitting model based on number_of_folds folds
-        model = GridSearchCV(pipeline, param_grid=parameteres, cv=number_of_folds)
-    
-        model.fit(X_train, y_train)
-        train_r2_score = model.score(X_train, y_train)
-        test_r2_score = model.score(X_test, y_test)
-    
-        model_saved = False
-    
-        if save_model:
-            if train_r2_score >= train_accuracy_threshold and test_r2_score >= test_accuracy_threshold:
-                # Upload trained model to a stage
-                model_output_dir = '/tmp'
-                model_file = os.path.join(model_output_dir, 'model.joblib')
-                dump(model, model_file)
-                session.file.put(model_file,"@dash_models",overwrite=True)
-                model_saved = True
-    
-        # Return model R2 score on train and test data
-        return {"R2 score on Train": train_r2_score,"R2 threshold on Train": train_accuracy_threshold,"R2 score on Test": test_r2_score,"R2 threshold on Test": test_accuracy_threshold,"Model saved":model_saved}
+    print("Training model")
+    ### Model Training in Snowflake
+    #### Python function to train a Linear Regression model using scikit-learn
+    #
+    # Let's create a simple modle using the *scikit-learn* like modeling primitives from 
+    # the Snowpark ML package which trains the model in Snowflake Warehouse.
+    #
+    # Snowpark ML is a set of tools including SDKs and underlying infrastructure to build 
+    # machine learning models. With Snowpark ML, you can pre-process data, train ML models all 
+    # within Snowflake, using a single SDK, and benefit from Snowflake’s proven performance, 
+    # scalability, stability and governance at every stage of the Machine Learning workflow.
+    #
+    # TIP: Learn more about [Snowpark-optimized Warehouses](https://docs.snowflake.com/en/user-guide/warehouses-snowpark-optimized.html).
 
-    ### Create Stored Procedure to deploy model training code on Snowflake
-    # Assuming the testing is complete and we're satisfied with the model, let's register the model training Python function as a Snowpark Python Stored Procedure by supplying the packages (snowflake-snowpark-python,scikit-learn, and joblib) it will need and use during execution.
-    # TIP: Learn more about Snowpark Python Stored Procedures https://docs.snowflake.com/en/sql-reference/stored-procedures-python.html
+    CROSS_VALIDATION_FOLDS = 10
+    POLYNOMIAL_FEATURES_DEGREE = 2
 
-    session.sproc.register(
-        func=train_revenue_prediction_model,
-        name="train_revenue_prediction_model",
-        packages=['snowflake-snowpark-python','scikit-learn','joblib'],
-        is_permanent=True,
-        stage_location="@dash_sprocs",
-        replace=True)
+    # Create train and test snowpark dataframes
+    train_df, test_df = session.table("MARKETING_BUDGETS_FEATURES").random_split(weights=[0.8, 0.2], seed=0)
 
-    ### Execute Stored Procedure to train model and deploy it on Snowflake
-    # Now we're ready to train the model and save it onto a Snowflake stage so let's set save_model = True and run/execute the Stored Procedure using session.call() function.
-    cross_validaton_folds = 10
-    polynomial_features_degrees = 2
-    train_accuracy_threshold = 0.85
-    test_accuracy_threshold = 0.85
-    save_model = True
+    # BUILD MODEL
 
-    print("Execute Stored Procedure to train model and deploy it on Snowflake")
-    # See the output of this command in "PY Output" tab below
-    print(session.call('train_revenue_prediction_model',
-                        'MARKETING_BUDGETS_FEATURES',
-                        cross_validaton_folds,
-                        polynomial_features_degrees,
-                        train_accuracy_threshold,
-                        test_accuracy_threshold,
-                        save_model))
+
+    # Preprocess the Numeric columns
+    # We apply PolynomialFeatures and StandardScaler preprocessing steps to the numeric columns
+    # NOTE: High degrees can cause overfitting.
+    numeric_features = ['SEARCH_ENGINE','SOCIAL_MEDIA','VIDEO','EMAIL']
+    numeric_transformer = Pipeline(steps=[('poly',PolynomialFeatures(degree = POLYNOMIAL_FEATURES_DEGREE)),('scaler', StandardScaler())])
+
+    # Combine the preprocessed step together using the Column Transformer module
+    preprocessor = ColumnTransformer(
+        transformers=[
+            ('num', numeric_transformer, numeric_features)])
+
+    # The next step is the integrate the features we just preprocessed with our Machine Learning algorithm to enable us to build a model
+    pipeline = Pipeline(steps=[('preprocessor', preprocessor),('classifier', LinearRegression())])
+    parameteres = {}
+
+
+    # Use GridSearch to find the best fitting model based on number_of_folds folds
+    model = GridSearchCV(
+        estimator=pipeline,
+        param_grid=parameteres,
+        cv=CROSS_VALIDATION_FOLDS,
+        label_cols=["REVENUE"],
+        output_cols=["PREDICTED_REVENUE"]
+    )
+
+    # TRAIN
+    model.fit(train_df)
+
+    # EVAL
+    train_r2_score = model.score(train_df)
+    test_r2_score = model.score(test_df)
+
+    # Print model R2 score on train and test data
+    print(
+        f"R2 score on Train: {train_r2_score},"
+        f"R2 score on Test: {test_r2_score}"
+    )
+
+    print("Saving model")
+    # Save model
+    ###Extract SKLearn object 
+    sk_model = model.to_sklearn()
+
+    model_output_dir = '/tmp'
+    model_file = os.path.join(model_output_dir, 'model.joblib')
+    dump(sk_model, model_file)
+    session.file.put(model_file, "@dash_models", overwrite=True)
 
     ### Create Scalar User-Defined Function (UDF) for inference
     # Now to deploy this model for inference, let's **create and register a Snowpark Python UDF and add the trained model as a dependency**. Once registered, getting new predictions is as simple as calling the function by passing in data.
