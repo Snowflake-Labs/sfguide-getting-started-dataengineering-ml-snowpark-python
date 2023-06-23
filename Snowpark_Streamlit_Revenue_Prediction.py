@@ -30,10 +30,9 @@ def load_data():
     return historical_data.to_pandas(), df_last_six_months_allocations, df_last_six_months_roi, df_last_months_allocations
 
 # Streamlit config
-st.set_page_config("SportsCo Ad Spend Optimizer", APP_ICON_URL, "centered")
+st.set_page_config("SkiGear Co Ad Spend Optimizer", APP_ICON_URL, "centered")
 st.write("<style>[data-testid='stMetricLabel'] {min-height: 0.5rem !important}</style>", unsafe_allow_html=True)
-st.image(APP_ICON_URL, width=80)
-st.title("SportsCo Ad Spend Optimizer")
+st.title("SkiGear Co Ad Spend Optimizer")
 
 # Call functions to get Snowflake session and load data
 session = create_session()

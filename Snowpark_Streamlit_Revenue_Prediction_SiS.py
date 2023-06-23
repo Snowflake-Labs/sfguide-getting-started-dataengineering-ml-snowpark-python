@@ -29,7 +29,7 @@ def chart(chart_data):
   st.altair_chart(chart, use_container_width=True)
 
 # Streamlit config
-st.header("SportsCo Ad Spend Optimizer")
+st.header("SkiGear Co Ad Spend Optimizer")
 st.subheader("Advertising budgets")
 
 # Call functions to get Snowflake session and load data
