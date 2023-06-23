@@ -2,7 +2,7 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/python
 {
 	"name": "Python 3",
-	"image": "mcr.microsoft.com/devcontainers/python:0-3.8",
+	"image": "mcr.microsoft.com/devcontainers/python:0-3.9",
 	"features": {
 		"ghcr.io/devcontainers/features/conda:1": {
 			"version": "latest"
