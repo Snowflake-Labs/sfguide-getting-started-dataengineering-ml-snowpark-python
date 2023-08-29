@@ -1,9 +1,9 @@
 {
-  "account"   : "",
-  "user"      : "",
-  "password"  : "",
-  "role"      : "",
-  "warehouse" : "",
-  "database"  : "",
-  "schema"    : ""
+  "account"   : "ppd.us-east-1",
+  "user"      : "kathleen.hausmann@ppd.com",
+  "role"      : "EDATA_ENGINEER_ROLE",
+  "warehouse" : "INTEGRATION_NONPROD_WH",
+  "database"  : "SNOWDEMOD",
+  "schema"    : "KATIE_DEMO",
+  "authenticator" : "externalbrowser"
 }
