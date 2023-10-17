@@ -4,6 +4,6 @@
   "password"  : "",
   "role"      : "",
   "warehouse" : "",
-  "database"  : "",
-  "schema"    : ""
+  "database"  : "DASH_DB",
+  "schema"    : "DASH_SCHEMA"
 }
