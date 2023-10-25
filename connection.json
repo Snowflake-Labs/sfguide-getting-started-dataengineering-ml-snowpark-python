@@ -2,8 +2,8 @@
   "account"   : "",
   "user"      : "",
   "password"  : "",
-  "role"      : "",
+  "role"      : "ACCOUNTADMIN",
   "warehouse" : "",
-  "database"  : "",
-  "schema"    : ""
+  "database"  : "DASH_DB",
+  "schema"    : "DASH_SCHEMA"
 }
