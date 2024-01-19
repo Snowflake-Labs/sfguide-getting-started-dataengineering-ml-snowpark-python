@@ -1,9 +1,9 @@
 {
-  "account"   : "zc08566",
+  "account"   : "ILTPIGZ-ZC08566",
   "user"      : "RAVIKUMAR",
-  "password"  : "RaviKumar@Dec#2023",
+  "password"  : "RaviKumar@HCL#2023",
   "role"      : "ACCOUNTADMIN",
-  "warehouse" : "COMPUTE-WH",
+  "warehouse" : "COMPUTE_WH",
   "database"  : "DASH_DB",
   "schema"    : "DASH_SCHEMA"
 }
