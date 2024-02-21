@@ -50,7 +50,7 @@ for alloc, col in zip(last_alloc.itertuples(), [col1, col1, col2, col2]):
 pred, change = predict(budgets)
 st.metric("", f"Predicted revenue ${pred:.2f} million", f"{change:.1f} % vs last month")
 july = pd.DataFrame({"MONTH": ["July"]*4, "CHANNEL": channels_upper, "BUDGET": budgets, "ROI": [pred]*4})
-chart(data.append(july).reset_index(drop=True).replace(channels_upper, channels))
+chart(pd.concat([data, july]).reset_index(drop=True).replace(channels_upper, channels))
 
 # Setup the ability to save user-entered allocations and predicted value back to Snowflake 
 if st.button("❄️ Save to Snowflake"):
