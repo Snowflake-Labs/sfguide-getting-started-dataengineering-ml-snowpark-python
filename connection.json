@@ -3,7 +3,7 @@
   "user"      : "",
   "password"  : "",
   "role"      : "ACCOUNTADMIN",
-  "warehouse" : "",
+  "warehouse" : "DASH_L",
   "database"  : "DASH_DB",
   "schema"    : "DASH_SCHEMA"
 }
