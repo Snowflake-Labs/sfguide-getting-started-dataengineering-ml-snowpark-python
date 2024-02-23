@@ -15,7 +15,7 @@ def load():
   return data.to_pandas(), alloc.to_pandas(), rois.to_pandas(), last_alloc.to_pandas()
 
 def predict(budgets):
-  pred = session.sql(f"SELECT predict_roi(array_construct({budgets[0]*1000},{budgets[1]*1000},{budgets[2]*1000},{budgets[3]*1000})) as PREDICTED_ROI").to_pandas()
+  pred = session.sql(f"SELECT ABS(PREDICT_ROI!predict({budgets[0]*1000},{budgets[1]*1000},{budgets[2]*1000},{budgets[3]*1000})['PREDICTED_REVENUE']::int) as PREDICTED_ROI").to_pandas()
   pred = pred["PREDICTED_ROI"].values[0] / 100000
   change = round(((pred / rois["ROI"].iloc[-1]) - 1) * 100, 1)
   return pred, change

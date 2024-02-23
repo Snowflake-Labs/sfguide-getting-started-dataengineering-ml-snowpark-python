@@ -53,7 +53,7 @@ for channel, default, col in zip(channels, df_last_months_allocations["BUDGET"].
 st.header("Predicted revenue")
 @st.cache_data(show_spinner=False)
 def predict(budgets):
-    df_predicted_roi = session.sql(f"SELECT predict_roi(array_construct({budgets[0]*1000},{budgets[1]*1000},{budgets[2]*1000},{budgets[3]*1000})) as PREDICTED_ROI").to_pandas()
+    df_predicted_roi = session.sql(f"SELECT ABS(PREDICT_ROI!predict({budgets[0]*1000},{budgets[1]*1000},{budgets[2]*1000},{budgets[3]*1000})['PREDICTED_REVENUE']::int) as PREDICTED_ROI").to_pandas()
     predicted_roi, last_month_roi = df_predicted_roi["PREDICTED_ROI"].values[0] / 100000, df_last_six_months_roi["ROI"].iloc[-1]
     change = round((predicted_roi - last_month_roi) / last_month_roi * 100, 1)
     return predicted_roi, change
