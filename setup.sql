@@ -63,5 +63,5 @@ VALUES
 
 -- Create stages required for Stored Procedures, UDFs, and saving model files
 CREATE OR REPLACE STAGE dash_sprocs;
-CREATE OR REPLACE STAGE dash_models;
-CREATE OR REPLACE STAGE dash_udfs;
+--CREATE OR REPLACE STAGE dash_models;
+--CREATE OR REPLACE STAGE dash_udfs;
