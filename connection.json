@@ -1,7 +1,7 @@
 {
-  "account"   : "",
-  "user"      : "",
-  "password"  : "",
+  "account"   : "sfedu03-pyb17023",
+  "user"      : "instructor1",
+  "password"  : "VanapaP5",
   "role"      : "ACCOUNTADMIN",
   "warehouse" : "DASH_L",
   "database"  : "DASH_DB",
