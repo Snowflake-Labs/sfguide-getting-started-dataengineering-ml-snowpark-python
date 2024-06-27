@@ -20,8 +20,6 @@ Here is a summary of what you will be able to learn in each step by following th
 
 Snowpark is the set of libraries and code execution environments that run Python and other programming languages next to your data in Snowflake. Snowpark can be used to build data pipelines, ML models, apps, and other data processing tasks.
 
-![Snowpark](assets/snowpark.png)
-
 **Client Side Libraries** - Snowpark libraries can be installed and downloaded from any client-side notebook or IDE and are used for code development and deployment. Libraries include the Snowpark API for data pipelines and apps and the Snowpark ML API for end to end machine learning.
 
 **Elastic Compute Runtimes** - Snowpark provides elastic compute runtimes for secure execution of your code in Snowflake. Runtime options include: Python, Java, and Scala in warehouses, container runtimes for out-of-the-box distributed processing with CPUs or GPUs using any Python framework, or custom runtimes brought in from Snowpark Container Services to execute any language of choice with CPU or GPU compute.
@@ -34,8 +32,6 @@ Snowflake ML is the integrated set of capabilities for end-to-end machine learni
 
 To get started with Snowflake ML, developers can use the Python APIs from the [Snowpark ML library](https://docs.snowflake.com/en/developer-guide/snowpark-ml/index), directly from Snowflake Notebooks (public preview) or downloaded and installed into any IDE of choice, including Jupyter or Hex.
 
-![Snowpark](assets/snowflake_ml.png)
-
 This quickstart will focus on
 
 - Snowpark ML Modeling API, which enables the use of popular Python ML frameworks, such as scikit-learn and XGBoost, for feature engineering and model training without the need to move data out of Snowflake.
@@ -47,11 +43,7 @@ Using these features, you can build and operationalize a complete ML workflow, t
 
 **Model Training** - Accelerate model training for scikit-learn, XGBoost and LightGBM models without the need to manually create stored procedures or user-defined functions (UDFs), and leverage distributed hyperparameter optimization.
 
-![Snowpark](assets/snowpark_ml_modeling.png)
-
 **Model Management and Batch Inference** - Manage several types of ML models created both within and outside Snowflake and execute batch inference.
-
-![Snowpark](assets/snowflake_ml_arch.png)
 
 ### What is Streamlit?
 
@@ -444,11 +436,7 @@ If you resumed the above tasks, suspend them to avoid unecessary resource utiliz
 
 ### Tasks Observability
 
-These tasks and their [DAGs](https://docs.snowflake.com/en/user-guide/tasks-intro#label-task-dag) can be viewed in [Snowsight](https://docs.snowflake.com/en/user-guide/ui-snowsight-tasks#viewing-individual-task-graphs) as shown below.
-
----
-
-![Tasks-Observability](assets/snowflake_tasks.png)
+These tasks and their [DAGs](https://docs.snowflake.com/en/user-guide/tasks-intro#label-task-dag) can be viewed in [Snowsight](https://docs.snowflake.com/en/user-guide/ui-snowsight-tasks#viewing-individual-task-graphs).
 
 ---
 
@@ -491,8 +479,6 @@ If you choose to use your existing [Hex](https://app.hex.tech/login) account or 
 
 2) Then, instead of using the [connection.json](https://github.com/Snowflake-Labs/sfguide-ml-model-snowpark-python-scikit-learn-streamlit/blob/main/connection.json) to connect to Snowflake, create a [Data Connection](https://learn.hex.tech/tutorials/connect-to-data/get-your-data#set-up-a-data-connection-to-your-database) and use that in the Machine Learning Notebook as shown below.
 
-![HEX Data Connection](assets/hex_data_connection.png)
-
 > aside negative
 > Note: You can also create shared data connections for your projects and users in your workspace. For more details, refer to the [docs](https://learn.hex.tech/docs/administration/workspace_settings/workspace-assets#shared-data-connections).
 
@@ -534,14 +520,6 @@ Follow these steps to build Streamlit application in Snowsight.
 **Step 6.** Replace sample application code displayed in the code editor on the left with the code provided in [Snowpark_Streamlit_Revenue_Prediction_SiS.py](https://github.com/Snowflake-Labs/sfguide-ad-spend-roi-snowpark-python-streamlit-scikit-learn/blob/main/Snowpark_Streamlit_Revenue_Prediction_SiS.py)
 
 **Step 7.** Click on **Run** on the top right
-
-If all goes well, you should see the application in Snowsight as shown below.
-
----
-
-![Streamlit-in-Snowflake](assets/app_sis.png)
-
----
 
 **Step 8.** Save data to Snowflake
 
