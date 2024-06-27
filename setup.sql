@@ -61,7 +61,3 @@ VALUES
 ('May',95,95,10,95,6.246),
 ('June',35,50,35,85,8.22);
 
--- Create stages required for Stored Procedures, UDFs, and saving model files
-CREATE OR REPLACE STAGE dash_sprocs;
---CREATE OR REPLACE STAGE dash_models;
---CREATE OR REPLACE STAGE dash_udfs;
