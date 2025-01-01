@@ -6,4 +6,4 @@ In this guide, we will perform data engineering (data analysis and data preparat
 
 ## Step-By-Step Guide
 
-For prerequisites, environment setup, step-by-step guide and instructions, please refer to the [QuickStart Guide](https://quickstarts.snowflake.com/guide/ai_video_search_with_snowflake_and_twelveLabs/index.html).
+For prerequisites, environment setup, step-by-step guide and instructions, please refer to the [QuickStart Guide](https://quickstarts.snowflake.com/guide/getting_started_with_dataengineering_ml_using_snowpark_python/index.html).
